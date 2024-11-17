@@ -76,9 +76,9 @@ const StudentSchema = new Schema<TStudent, StudentModel>(
       type: Schema.Types.ObjectId,
       required: [true, 'user Id is required'],
       unique: true,
-      ref: 'User'
+      ref: 'User',
     },
-   
+
     name: {
       type: userNameSchema,
       required: [true, 'Student name is required'],
@@ -88,7 +88,7 @@ const StudentSchema = new Schema<TStudent, StudentModel>(
       enum: ['male', 'female', 'other'],
       required: [true, 'Gender is required'],
     },
-    dateOfBirth: { type: String },
+    dateOfBirth: { type: Date },
     email: {
       type: String,
       required: [true, 'Email is required'],
@@ -126,7 +126,16 @@ const StudentSchema = new Schema<TStudent, StudentModel>(
       type: localGuardianSchema,
       required: [true, 'Local guardian information is required'],
     },
-   
+    profileImage: { type: String },
+    admissionSemester: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicSemester',
+    },
+    academicDepartment: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicDepartment',
+    },
+
     isDeleted: {
       type: Boolean,
       default: false,
@@ -143,7 +152,6 @@ const StudentSchema = new Schema<TStudent, StudentModel>(
 StudentSchema.virtual('fullName').get(function () {
   return `${this.name.firstName} ${this.name.middleName} ${this.name.lastName}`;
 });
-
 
 // Query middleWare
 StudentSchema.pre('find', async function (next) {
