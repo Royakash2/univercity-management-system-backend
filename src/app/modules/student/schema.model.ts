@@ -331,7 +331,7 @@ const StudentSchema = new Schema<TStudent, StudentModel>(
 
 // Virtual Field for Full Name
 StudentSchema.virtual('fullName').get(function () {
-  return `${this.name.firstName} ${this.name.middleName || ''} ${this.name.lastName}`.trim();
+  return `${this?.name?.firstName} ${this?.name?.middleName || ''} ${this?.name?.lastName}`.trim();
 });
 
 // Middleware for Soft Deletion
