@@ -1,7 +1,8 @@
+import { TCourse } from './course.interface';
 import { Course } from './course.model';
 
-const createCourseIntoDB = async () => {
-  const result = await Course.create();
+const createCourseIntoDB = async (payLoad:TCourse) => {
+  const result = await Course.create(payLoad);
   return result;
 };
 const getAllCoursesFromDB = async () => {
@@ -12,7 +13,7 @@ const getSingleCourseFromDB = async (id: string) => {
   const result = await Course.findById(id);
   return result;
 };
-const deleteCourseIntoDB = async (id: string) => {
+const deleteCourseFRomDB = async (id: string) => {
   const result = await Course.findByIdAndUpdate(
     id,
     {
@@ -29,5 +30,5 @@ export const courseServices = {
   createCourseIntoDB,
   getAllCoursesFromDB,
   getSingleCourseFromDB,
-  deleteCourseIntoDB,
+  deleteCourseFRomDB,
 };
