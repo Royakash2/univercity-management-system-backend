@@ -32,7 +32,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'course is retrieved successfully',
+    message: 'course is deleted successfully',
     data: result,
   });
 });
