@@ -1,5 +1,4 @@
 import { TAcademicSemester } from '../AcademicSemester/AcademicSemister.interface';
-import { TFaculty } from '../Faculty/faculty.interface';
 import { User } from './user.model';
 
 // student id generate
@@ -89,12 +88,11 @@ const findLastAdminId = async () => {
 export const generateAdminId = async () => {
   let currentId = (0).toString();
   const lastAdminId = await findLastAdminId();
-   if(lastAdminId){
-    currentId = lastAdminId.substring(2)
-   }
-   let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
+  if (lastAdminId) {
+    currentId = lastAdminId.substring(2);
+  }
+  let incrementId = (Number(currentId) + 1).toString().padStart(4, '0');
   incrementId = `A-${incrementId}`;
 
   return incrementId;
-
 };
