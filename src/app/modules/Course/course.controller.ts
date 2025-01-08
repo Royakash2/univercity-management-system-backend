@@ -15,7 +15,8 @@ const createCourse = catchAsync(async (req, res, next) => {
 });
 
 const getAllCourses = catchAsync(async (req, res) => {
-  const result = await courseServices.getAllCoursesFromDB();
+  const query = req.query;
+  const result = await courseServices.getAllCoursesFromDB(query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -59,7 +60,7 @@ const deleteCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'course is retrieved successfully',
+    message: 'course is deleted successfully',
     data: result,
   });
 });
