@@ -4,7 +4,7 @@ import { User } from '../user/user.model';
 import { TStudent } from './student.interface';
 
 import AppError from '../../errors/appError';
-import QueryBuilder from '../../builder/QueryBulder';
+import QueryBuilder from '../../builder/QueryBuilder';
 import { studentSearchableFields } from './Student.constant';
 import mongoose from 'mongoose';
 
