@@ -1,4 +1,4 @@
-import { populate } from 'dotenv';
+
 import QueryBuilder from '../../builder/QueryBuilder';
 import { courseSearchableFields } from './course.constant';
 import { TCourse } from './course.interface';
@@ -28,6 +28,40 @@ const getSingleCourseFromDB = async (id: string) => {
   );
   return result;
 };
+
+const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
+  const { preRequisiteCourse, ...courseRemainingData } = payload;
+
+  // step:1 basic course Update
+  const updateBasicCourseInfo = await Course.findByIdAndUpdate(
+    id,
+    courseRemainingData,
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  console.log(preRequisiteCourse);
+  // check there if any prerequisite courses to update
+
+  if (preRequisiteCourse && preRequisiteCourse.length > 0) {
+    // filter out the delete field
+    const deletedPrerequisites = preRequisiteCourse
+      .filter((el) => el.course && el.isDeleted)
+      .map((el) => el.course);
+    const deletePrerequisiteCourses = await Course.findByIdAndUpdate(id, {
+      $pull: {
+        preRequisiteCourse: {
+          course: { $in: deletedPrerequisites}
+        }
+      },
+    });
+  }
+
+  return updateBasicCourseInfo;
+};
+
 const deleteCourseFRomDB = async (id: string) => {
   const result = await Course.findByIdAndUpdate(
     id,
@@ -45,5 +79,6 @@ export const courseServices = {
   createCourseIntoDB,
   getAllCoursesFromDB,
   getSingleCourseFromDB,
+  updateCourseIntoDb,
   deleteCourseFRomDB,
 };
