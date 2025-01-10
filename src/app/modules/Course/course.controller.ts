@@ -3,7 +3,7 @@ import { catchAsync } from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { courseServices } from './course.service';
 
-const createCourse = catchAsync(async (req, res, next) => {
+const createCourse = catchAsync(async (req, res, ) => {
   const result = await courseServices.createCourseIntoDB(req.body);
 
   sendResponse(res, {
