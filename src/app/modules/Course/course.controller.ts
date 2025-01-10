@@ -3,7 +3,7 @@ import { catchAsync } from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { courseServices } from './course.service';
 
-const createCourse = catchAsync(async (req, res, ) => {
+const createCourse = catchAsync(async (req, res) => {
   const result = await courseServices.createCourseIntoDB(req.body);
 
   sendResponse(res, {
@@ -40,10 +40,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
 
 const updateCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await courseServices.updateCourseIntoDb(
-    id,
-    req.body,
-  );
+  const result = await courseServices.updateCourseIntoDb(id, req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -64,11 +61,27 @@ const deleteCourse = catchAsync(async (req, res) => {
     data: result,
   });
 });
-    
+const assignFacultiesWithCourse = catchAsync(async (req, res) => {
+  const { courseId } = req.params;
+  const { faculties } = req.body;
+  const result = await courseServices.assignFacultiesWithCourseIntoDb(
+    courseId,
+    faculties,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'course is deleted successfully',
+    data: result,
+  });
+});
+
 export const courseControllers = {
   createCourse,
   getAllCourses,
   getSingleCourse,
   updateCourse,
+  assignFacultiesWithCourse,
   deleteCourse,
 };
