@@ -87,7 +87,7 @@ const updateCourseIntoDb = async (id: string, payload: Partial<TCourse>) => {
       const newPreRequisiteCourses = await Course.findByIdAndUpdate(
         id,
         {
-          $addToSet: { preRequisiteCourses: { $each: newPreRequisites } },
+          $addToSet: { preRequisiteCourse: { $each: newPreRequisites } },
         },
         {
           new: true,
