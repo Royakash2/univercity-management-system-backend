@@ -124,6 +124,7 @@ const assignFacultiesWithCourseIntoDb = async (
   const result = await CourseFaculty.findByIdAndUpdate(
     id,
     {
+      course: id,
       $addToSet: { faculties: { $each: payload } },
     },
     {
