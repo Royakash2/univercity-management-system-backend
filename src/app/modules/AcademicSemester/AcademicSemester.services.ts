@@ -1,6 +1,6 @@
 import httpStatus from 'http-status';
 import { academicSemesterNameCodeMapper } from './Academic.constant';
-import { TAcademicSemester, TAcademicSemesterCode } from './AcademicSemister.interface';
+import { TAcademicSemester} from './AcademicSemister.interface';
 import { AcademicSemester } from './academicSemester.model';
 import AppError from '../../errors/appError';
 
